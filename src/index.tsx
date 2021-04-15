@@ -3,7 +3,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import * as esbuild from "esbuild-wasm";
 import { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import CodeEditor from "./components/code-editor";
+// import CodeEditor from "./components/code-editor";
 import bundler from "./bundler";
 
 const initialSQL = `CREATE TABLE mybook ( id integer );
@@ -32,6 +32,7 @@ const App = () => {
 
     const { code, error } = await bundler(input, ref.current);
     if (!error) {
+      // eslint-disable-next-line no-eval
       eval(code);
     } else {
       alert(code);
