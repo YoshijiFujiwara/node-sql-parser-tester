@@ -1,9 +1,10 @@
+import "bulmaswatch/cerulean/bulmaswatch.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import * as esbuild from "esbuild-wasm";
 import { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
-import { fetchPlugin } from "./plugins/fetch-plugin";
 import CodeEditor from "./components/code-editor";
+import bundler from "./bundler";
 
 const initialSQL = "SELECT id, name, created_at FROM users;";
 
@@ -25,32 +26,22 @@ const App = () => {
     if (!ref.current) {
       return;
     }
-
-    const executeCode = `    
-const { Parser } = require("node-sql-parser");
-const parser = new Parser();
-const ast = parser.astify('${input.trim().replace(/\n/g, " ")}');
-
-const preview = document.querySelector('#preview');
-preview.innerHTML = JSON.stringify(ast);
-`;
-
-    const result = await ref.current.build({
-      entryPoints: ["index.js"],
-      bundle: true,
-      write: false,
-      plugins: [unpkgPathPlugin(), fetchPlugin(executeCode)],
-      define: {
-        "process.env.NODE_ENV": '"production"',
-        global: "window",
-      },
-    });
-
-    eval(result.outputFiles[0].text);
+    const executionCode = await bundler(input, ref.current);
+    eval(executionCode);
   };
 
   return (
     <div>
+      <h1 className="is-size-1">node-sql-parserでastifyするやつ</h1>
+      <div className="content is-size-5">
+        <ul>
+          <li>
+            node-sql-parserのparser.astifyしたものを、JSON.stringifyした結果を出します
+          </li>
+          <li>エラー処理が甘いので、SQL文を間違うと、赤い画面が出そう</li>
+          <li>ブラウザで動かすためにesbuildでバンドルしてeval()してます</li>
+        </ul>
+      </div>
       <CodeEditor
         onChange={(val) => {
           setInput(val);
@@ -58,7 +49,12 @@ preview.innerHTML = JSON.stringify(ast);
         initialValue={initialSQL}
       />
       <div>
-        <button onClick={onClick}>astify</button>
+        <button
+          className="button is-rounded is-primary is-big"
+          onClick={onClick}
+        >
+          astify
+        </button>
       </div>
       <pre id="preview"></pre>
     </div>

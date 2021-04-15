@@ -1448,6 +1448,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fortawesome/fontawesome-free@^5.15.3":
+  version "5.15.3"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.3.tgz#c36ffa64a2a239bf948541a97b6ae8d729e09a9a"
+  integrity sha512-rFnSUN/QOtnOAgqFRooTA3H57JLDm0QEG/jPdk+tLQNL/eWd+Aok8g3qCI+Q1xuDPWpGW/i9JySpJVsq8Q0s9w==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -3368,6 +3373,11 @@ builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
   integrity sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=
+
+bulmaswatch@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/bulmaswatch/-/bulmaswatch-0.8.1.tgz#3b9cf899dfa2430b9d5178362a45e79f005b0b5b"
+  integrity sha512-7HGm5v9If6gzxbTht4/oVS0dhySp6g/JyTrxmpSXHXgDQXivvxiuVmcJOZo3PFv9GAOn4om7SK36I2V8W81sgw==
 
 bytes@3.0.0:
   version "3.0.0"
