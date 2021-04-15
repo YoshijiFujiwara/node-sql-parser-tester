@@ -48,9 +48,12 @@ const App = () => {
           <li>
             node-sql-parserのparser.astifyしたものを、JSON.stringifyした結果を出します
           </li>
-          <li>複数行対応してる希ガス</li>
-          <li>エラー処理が甘いので、SQL文を間違うと、赤い画面が出そう</li>
-          <li>ブラウザで動かすためにesbuildでバンドルしてeval()してます</li>
+          <li>
+            エラー処理が甘いので、SQL文を間違うと、止まる感じです。その時は、画面リロード
+          </li>
+          <li>
+            ブラウザで動かすためにesbuildでバンドル、トランスパイルしてeval()してます
+          </li>
           <li>なので、動きそうなJSとか書いちゃダメです。SQL文のみ頼みます</li>
           <li>
             SQL文章例
