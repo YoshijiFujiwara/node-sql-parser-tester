@@ -3,7 +3,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import * as esbuild from "esbuild-wasm";
 import { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import CodeEditor from "./components/code-editor";
+// import CodeEditor from "./components/code-editor";
 import bundler from "./bundler";
 
 const initialSQL = `CREATE TABLE mybook ( id integer );
@@ -32,6 +32,7 @@ const App = () => {
 
     const { code, error } = await bundler(input, ref.current);
     if (!error) {
+      // eslint-disable-next-line no-eval
       eval(code);
     } else {
       alert(code);
@@ -47,9 +48,12 @@ const App = () => {
           <li>
             node-sql-parserのparser.astifyしたものを、JSON.stringifyした結果を出します
           </li>
-          <li>複数行対応してる希ガス</li>
-          <li>エラー処理が甘いので、SQL文を間違うと、赤い画面が出そう</li>
-          <li>ブラウザで動かすためにesbuildでバンドルしてeval()してます</li>
+          <li>
+            エラー処理が甘いので、SQL文を間違うと、止まる感じです。その時は、画面リロード
+          </li>
+          <li>
+            ブラウザで動かすためにesbuildでバンドル、トランスパイルしてeval()してます
+          </li>
           <li>なので、動きそうなJSとか書いちゃダメです。SQL文のみ頼みます</li>
           <li>
             SQL文章例
@@ -99,7 +103,7 @@ const App = () => {
         </button>
         {isLoading && <p> 実行中...</p>}
       </div>
-      <pre id="preview"></pre>
+      <pre style={{ fontSize: 16 }} id="preview"></pre>
     </div>
   );
 };
