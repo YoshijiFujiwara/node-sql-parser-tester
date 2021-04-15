@@ -69,12 +69,21 @@ const App = () => {
           </li>
         </ul>
       </div>
-      <CodeEditor
+      {/* loader conflict系のエラーが出るので、断念 */}
+      {/* <CodeEditor
         onChange={(val) => {
           setInput(val);
         }}
         initialValue={initialSQL}
-      />
+      /> */}
+      <textarea
+        className="textarea is-primary"
+        cols={30}
+        rows={10}
+        onChange={(e) => setInput(e.target.value)}
+      >
+        {initialSQL}
+      </textarea>
       <div>
         <button
           className="button is-rounded is-primary is-big"

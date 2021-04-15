@@ -9,6 +9,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
   const onEditorDidMount: EditorDidMount = (getValue, monacoEditor) => {
     monacoEditor.onDidChangeModelContent(() => {
       onChange(getValue());
+      console.log("onchange", getValue());
     });
 
     monacoEditor.getModel()?.updateOptions({ tabSize: 2 });
