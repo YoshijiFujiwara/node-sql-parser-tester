@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
 import { fetchPlugin } from "./plugins/fetch-plugin";
+import CodeEditor from "./components/code-editor";
 
 const App = () => {
   const ref = useRef<any>();
@@ -48,6 +49,7 @@ preview.innerHTML = JSON.stringify(ast);
 
   return (
     <div>
+      <CodeEditor initialValue="SELECT id, name, created_at FROM users;" />
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
