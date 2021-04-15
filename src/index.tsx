@@ -6,7 +6,8 @@ import ReactDOM from "react-dom";
 import CodeEditor from "./components/code-editor";
 import bundler from "./bundler";
 
-const initialSQL = "SELECT id, name, created_at FROM users;";
+const initialSQL = `CREATE TABLE mybook ( id integer );
+SELECT id, name, created_at FROM users;`;
 
 const App = () => {
   const ref = useRef<any>();
@@ -29,8 +30,12 @@ const App = () => {
     }
     setLoading(true);
 
-    const executionCode = await bundler(input, ref.current);
-    eval(executionCode);
+    const { code, error } = await bundler(input, ref.current);
+    if (!error) {
+      eval(code);
+    } else {
+      alert(code);
+    }
     setLoading(false);
   };
 
@@ -42,6 +47,7 @@ const App = () => {
           <li>
             node-sql-parserのparser.astifyしたものを、JSON.stringifyした結果を出します
           </li>
+          <li>複数行対応してる希ガス</li>
           <li>エラー処理が甘いので、SQL文を間違うと、赤い画面が出そう</li>
           <li>ブラウザで動かすためにesbuildでバンドルしてeval()してます</li>
           <li>なので、動きそうなJSとか書いちゃダメです。SQL文のみ頼みます</li>
@@ -63,8 +69,8 @@ const App = () => {
                 SELECT id_p, fullname FROM purchase JOIN customer ON
                 purchase.id_c=customer.id_c;
               </li>
-              <li>create table mybook ( id integer );</li>
-              <li>drop table users;</li>
+              <li>CREATE TABLE mybook ( id integer );</li>
+              <li>DROP TABLE users;</li>
             </ul>
           </li>
         </ul>
@@ -77,7 +83,7 @@ const App = () => {
         initialValue={initialSQL}
       /> */}
       <textarea
-        value={initialSQL}
+        defaultValue={initialSQL}
         className="textarea is-primary"
         cols={30}
         rows={10}
@@ -89,7 +95,7 @@ const App = () => {
           onClick={onClick}
           disabled={isLoading}
         >
-          astify
+          ASTのJSON生成やで
         </button>
         {isLoading && <p> 実行中...</p>}
       </div>
