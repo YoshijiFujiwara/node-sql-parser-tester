@@ -49,7 +49,10 @@ preview.innerHTML = JSON.stringify(ast);
 
   return (
     <div>
-      <CodeEditor initialValue="SELECT id, name, created_at FROM users;" />
+      <CodeEditor
+        onChange={() => console.log("hoge")}
+        initialValue="SELECT id, name, created_at FROM users;"
+      />
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
