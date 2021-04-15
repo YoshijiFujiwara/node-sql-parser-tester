@@ -8,7 +8,7 @@ const parser = new Parser();
 const ast = parser.astify('${rawCode.trim().replace(/\n/g, " ")}');
 
 const preview = document.querySelector('#preview');
-preview.innerHTML = JSON.stringify(ast);
+preview.innerHTML = JSON.stringify(ast, null, 2);
 `;
   const result = await refCurrent.build({
     entryPoints: ["index.js"],

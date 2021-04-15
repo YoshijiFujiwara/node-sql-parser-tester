@@ -77,13 +77,12 @@ const App = () => {
         initialValue={initialSQL}
       /> */}
       <textarea
+        value={initialSQL}
         className="textarea is-primary"
         cols={30}
         rows={10}
         onChange={(e) => setInput(e.target.value)}
-      >
-        {initialSQL}
-      </textarea>
+      ></textarea>
       <div>
         <button
           className="button is-rounded is-primary is-big"
