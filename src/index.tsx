@@ -11,7 +11,7 @@ const App = () => {
   const startService = async () => {
     ref.current = await esbuild.startService({
       worker: true,
-      wasmURL: "/esbuild.wasm", // いったん、publicフォルダにおいた
+      wasmURL: "/esbuild.wasm",
     });
   };
   useEffect(() => {
@@ -28,7 +28,13 @@ const App = () => {
       bundle: true,
       write: false,
       plugins: [unpkgPathPlugin()],
+      define: {
+        "process.env.NODE_ENV": '"production"',
+        global: "window",
+      },
     });
+
+    console.log(result);
 
     setCode(result.outputFiles[0].text);
   };
@@ -40,7 +46,7 @@ const App = () => {
         onChange={(e) => setInput(e.target.value)}
       ></textarea>
       <div>
-        <button onClick={onClick}>submit</button>
+        <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
     </div>
