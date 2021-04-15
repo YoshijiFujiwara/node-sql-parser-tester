@@ -13,7 +13,7 @@ export const fetchPlugin = (inputCode: string) => {
       build.onLoad({ filter: /.*/ }, async (args: any) => {
         if (args.path === "index.js") {
           return {
-            loader: "jsx",
+            loader: "ts",
             contents: inputCode,
           };
         }
@@ -28,7 +28,7 @@ export const fetchPlugin = (inputCode: string) => {
         const { data, request } = await axios.get(args.path);
 
         const result: esbuild.OnLoadResult = {
-          loader: "jsx",
+          loader: "ts",
           contents: data,
           resolveDir: new URL("./", request.responseURL).pathname,
         };

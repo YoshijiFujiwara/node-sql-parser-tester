@@ -24,20 +24,27 @@ const App = () => {
       return;
     }
 
+    const executeCode = `    
+const { Parser } = require("node-sql-parser");
+const parser = new Parser();
+const ast = parser.astify('${input}');
+
+const preview = document.querySelector('#preview');
+preview.innerHTML = JSON.stringify(ast);
+`;
+
     const result = await ref.current.build({
       entryPoints: ["index.js"],
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin(), fetchPlugin(input)],
+      plugins: [unpkgPathPlugin(), fetchPlugin(executeCode)],
       define: {
         "process.env.NODE_ENV": '"production"',
         global: "window",
       },
     });
 
-    // console.log(result);
-
-    setCode(result.outputFiles[0].text);
+    eval(result.outputFiles[0].text);
   };
 
   return (
@@ -49,7 +56,7 @@ const App = () => {
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
-      <pre>{code}</pre>
+      <pre id="preview">{code}</pre>
     </div>
   );
 };
