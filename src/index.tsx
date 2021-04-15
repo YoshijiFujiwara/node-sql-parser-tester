@@ -5,9 +5,11 @@ import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
 import { fetchPlugin } from "./plugins/fetch-plugin";
 import CodeEditor from "./components/code-editor";
 
+const initialSQL = "SELECT id, name, created_at FROM users;";
+
 const App = () => {
   const ref = useRef<any>();
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(initialSQL);
 
   const startService = async () => {
     ref.current = await esbuild.startService({
@@ -27,7 +29,7 @@ const App = () => {
     const executeCode = `    
 const { Parser } = require("node-sql-parser");
 const parser = new Parser();
-const ast = parser.astify('${input}');
+const ast = parser.astify('${input.trim().replace(/\n/g, " ")}');
 
 const preview = document.querySelector('#preview');
 preview.innerHTML = JSON.stringify(ast);
@@ -50,15 +52,13 @@ preview.innerHTML = JSON.stringify(ast);
   return (
     <div>
       <CodeEditor
-        onChange={() => console.log("hoge")}
-        initialValue="SELECT id, name, created_at FROM users;"
+        onChange={(val) => {
+          setInput(val);
+        }}
+        initialValue={initialSQL}
       />
-      <textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      ></textarea>
       <div>
-        <button onClick={onClick}>Submit</button>
+        <button onClick={onClick}>astify</button>
       </div>
       <pre id="preview"></pre>
     </div>

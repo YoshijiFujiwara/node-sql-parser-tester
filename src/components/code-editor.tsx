@@ -1,4 +1,4 @@
-import MonacoEditor, { EditorDidMount, monaco } from "@monaco-editor/react";
+import MonacoEditor, { EditorDidMount } from "@monaco-editor/react";
 
 interface CodeEditorProps {
   initialValue: string;
