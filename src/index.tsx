@@ -7,7 +7,6 @@ import { fetchPlugin } from "./plugins/fetch-plugin";
 const App = () => {
   const ref = useRef<any>();
   const [input, setInput] = useState("");
-  const [code, setCode] = useState("");
 
   const startService = async () => {
     ref.current = await esbuild.startService({
@@ -56,7 +55,7 @@ preview.innerHTML = JSON.stringify(ast);
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
-      <pre id="preview">{code}</pre>
+      <pre id="preview"></pre>
     </div>
   );
 };
