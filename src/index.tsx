@@ -99,7 +99,7 @@ const App = () => {
         </button>
         {isLoading && <p> 実行中...</p>}
       </div>
-      <pre id="preview"></pre>
+      <pre style={{ fontSize: 16 }} id="preview"></pre>
     </div>
   );
 };

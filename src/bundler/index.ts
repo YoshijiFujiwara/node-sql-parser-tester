@@ -14,7 +14,7 @@ const parser = new Parser();
 const ast = parser.astify('${escaped}');
 
 const preview = document.querySelector('#preview');
-preview.innerHTML = JSON.stringify(ast, null, 2);
+preview.innerHTML = JSON.stringify(ast, null, 4);
 `;
   try {
     const result = await refCurrent.build({
