@@ -13,7 +13,7 @@ const App = () => {
   const ref = useRef<any>();
   const [input, setInput] = useState<string>(initialSQL);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [dbms, setDbms] = useState<string>("MySQL");
+  const [dbms, setDbms] = useState<string>("PostgreSQL");
 
   const startService = async () => {
     ref.current = await esbuild.startService({
