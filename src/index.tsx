@@ -13,6 +13,7 @@ const App = () => {
   const ref = useRef<any>();
   const [input, setInput] = useState<string>(initialSQL);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [dbms, setDbms] = useState<string>("MySQL");
 
   const startService = async () => {
     ref.current = await esbuild.startService({
@@ -30,7 +31,7 @@ const App = () => {
     }
     setLoading(true);
 
-    const { code, error } = await bundler(input, ref.current);
+    const { code, error } = await bundler(input, dbms, ref.current);
     if (!error) {
       // eslint-disable-next-line no-eval
       eval(code);
@@ -86,6 +87,7 @@ const App = () => {
         }}
         initialValue={initialSQL}
       /> */}
+
       <textarea
         defaultValue={initialSQL}
         className="textarea is-primary"
@@ -94,6 +96,15 @@ const App = () => {
         onChange={(e) => setInput(e.target.value)}
       ></textarea>
       <div>
+        <div className="select">
+          <select value={dbms} onChange={(e) => setDbms(e.target.value)}>
+            <option selected value="MySQL">
+              MySQL
+            </option>
+            <option value="PostgreSQL">PostgreSQL</option>
+            <option value="MariaDB">MariaDB</option>
+          </select>
+        </div>
         <button
           className="button is-rounded is-primary is-big"
           onClick={onClick}
