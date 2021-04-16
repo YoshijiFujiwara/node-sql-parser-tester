@@ -1,7 +1,7 @@
 import { fetchPlugin } from "../plugins/fetch-plugin";
 import { unpkgPathPlugin } from "../plugins/unpkg-path-plugin";
 
-const bundler = async (rawCode: string, refCurrent: any) => {
+const bundler = async (rawCode: string, dbms: string, refCurrent: any) => {
   const escaped = rawCode
     .trim()
     .replace(/\n/g, " ")
@@ -11,7 +11,10 @@ const bundler = async (rawCode: string, refCurrent: any) => {
   const executeCode = `    
 const { Parser } = require("node-sql-parser");
 const parser = new Parser();
-const ast = parser.astify('${escaped}');
+const opt = {
+  database: '${dbms}',
+}
+const ast = parser.astify('${escaped}', opt);
 
 const preview = document.querySelector('#preview');
 preview.innerHTML = JSON.stringify(ast, null, 4);
